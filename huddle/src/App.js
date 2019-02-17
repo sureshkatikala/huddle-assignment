@@ -39,7 +39,7 @@ class App extends Component {
         console.log(error);
         alert(error);
     };
-    checkemail = (email) => {
+    isWhitelisted = (email) => {
         return new Promise((resolve, reject) => {
             db.where("email", "==", email)
                 .get()
@@ -62,7 +62,7 @@ class App extends Component {
 
     googleResponse = (response) => {
         console.log(response);
-        this.checkemail(response.profileObj.email).then(({ querylength, docId }) => {
+        this.isWhitelisted(response.profileObj.email).then(({ querylength, docId }) => {
             if (querylength > 0) {
                 this.setState({ isAuthenticated: true, token: response.Zi.access_token, user: response.profileObj, jwt: response.tokenObj.id_token });
                 console.log(response);
@@ -83,15 +83,6 @@ class App extends Component {
         })
     };
 
-    callBackendAPI = async () => {
-        const response = await fetch('/express_backend');
-        const body = await response.json();
-
-        if (response.status !== 200) {
-            throw Error(body.message)
-        }
-        return body;
-    };
 
     handleChange(e) {
         this.setState({ text: e.target.value });
@@ -129,7 +120,7 @@ class App extends Component {
                 let querydata = doc.data();
                 jsxarray.push(
                     <div>
-                        <p>Email : {querydata.email}</p>
+                        <p>{querydata.email}</p>
                         {/* <p>Name: {querydata.userData.name}</p>
                         <img src={querydata.userData.imageUrl}/> */}
                     </div>
@@ -162,17 +153,17 @@ class App extends Component {
                         <img src={this.state.user.imageUrl} />
                     </div>
                     <div>
-                        {this.state.user.email}
+                        Email : {this.state.user.email}
                     </div>
                     <div>
-                        {this.state.user.name}
+                        Name : {this.state.user.name}
                     </div>
                     <div>
                         JWT : {this.state.jwt}
                     </div>
                     <div>
                         <div>
-                            <h3>Whitelist New Users</h3>
+                            <h3>Whitelisting Multiple Users</h3>
                             <TodoList items={this.state.items} />
                             <form onSubmit={this.handleSubmit}>
                                 <label htmlFor="new-todo">
@@ -243,24 +234,3 @@ class TodoList extends React.Component {
 
 
 export default App;
-
-    // facebookResponse = (response) => {
-    //     console.log(response);
-    //     this.checkemail(response.email).then(querylength => {
-    //         if (querylength > 0) {
-    //             this.setState({ isAuthenticated: true, token: response.accessToken, user: response });
-    //             console.log(response);
-    //         } else {
-    //             console.log(querylength);
-    //             alert('User not authenticated');
-    //         }
-    //     })
-
-    //     let postData = {
-
-    //     }
-
-    //     // this.createFBJWT()
-    //     // .then(res => console.log(res))
-    //     // .catch(err => console.log(err));
-    // }

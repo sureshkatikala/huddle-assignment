@@ -31,6 +31,9 @@
     transform: rotate(360deg);
   }
 }
+.authenticated {
+  text-align: center;
+}
 .signin-button {
   border-radius: 3px;
   width:100px;
