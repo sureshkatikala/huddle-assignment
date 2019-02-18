@@ -3,6 +3,7 @@ import TwitterLogin from 'react-twitter-auth';
 import FacebookLogin from 'react-facebook-login';
 import { GoogleLogin } from 'react-google-login';
 import config from './config.json';
+import './App.css'
 
 const firebase = require("firebase");
 // Required for side-effects
@@ -149,18 +150,23 @@ class App extends Component {
             (
                 <div className = 'authenticated'>
                     <p>Authenticated</p>
+                    <br/>
                     <div>
                         <img src={this.state.user.imageUrl} />
                     </div>
+                    <br/>
                     <div>
                         Email : {this.state.user.email}
                     </div>
+                    <br/>
                     <div>
                         Name : {this.state.user.name}
                     </div>
+                    <br/>
                     <div>
                         JWT : {this.state.jwt}
                     </div>
+                    <br/>
                     <div>
                         <div>
                             <h3>Whitelisting Multiple Users</h3>
@@ -175,22 +181,25 @@ class App extends Component {
                                     onChange={this.handleChange}
                                     value={this.state.text}
                                 />
+                                <br />
                                 <button>
                                     Add #{this.state.items.length + 1}
                                 </button>
                             </form>
                         </div>
                     </div>
+                    <br />
                     <div>
                         {!this.state.showWhiteListedUsers ? this.state.whiteListedUsers : null}
                     </div>
+                    <br />
                     <div>
 
                         <button onClick={this.handleshowWhiteList} className="button">
                             {this.state.showWhiteListedUsers ? 'Show' : 'Hide'} all Whitelisted Users
                         </button>
                     </div>
-                   
+                   <br />
                     <div>
 
                         <button onClick={this.logout} className="button">
