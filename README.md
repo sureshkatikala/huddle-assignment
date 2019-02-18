@@ -1,5 +1,5 @@
 # huddle-assignment
-### for running the docker file
+### for running the APP
 ```
 # Change the working directory to huddle folder
 cd huddle
